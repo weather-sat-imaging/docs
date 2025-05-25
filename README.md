@@ -1,70 +1,59 @@
 # Weather satellites imaging
 
-## Objectifs
+This project aims to develop and implement an autonomous system for capturing images from weather satellites. The ultimate goal is to complete the entire acquisition chain: from the antenna to the signal processing systems, up to displaying the received images on a website. As part of the project we also to developp some related softwares, such as satellites trajectory prediction and image processing, to enhance the overall system capabilities.
 
-Ce projet vise à développer et mettre en œuvre un système autonome de capture d’images de satellites météorologiques. L’objectif final est de réaliser l’ensemble de la chaîne d’acquisition : de l’antenne aux systèmes de traitement du signal, jusqu’à l’affichage des images reçues sur un site web.
+The project is divided into several sub-parts, some of which are optional, to cover the entire chain. Some of the more complex steps can be replaced by existing open-source alternatives. The main interest in redoing them ourselves is to learn how to design them and understand how they work.
 
-Le projet est divisé en plusieurs sous-parties, dont certaines sont facultatives, afin de couvrir toute la chaîne complète. Certaines des étapes les plus complexes peuvent être remplacées par des alternatives open source déjà existantes. L’intérêt principal de les refaire nous-mêmes est d’apprendre à les concevoir et de comprendre leur fonctionnement.
+As recieving all satellites radio signals is not a simple task, we plan to focus on the most interresting ones, such as NOAA and METEOR wheather satellites. These satellites transmit images in the 137-138 MHz band, which is accessible with a rather simple setup but complex enough for an interresting learning experience.
 
-![System overview](./images/System%20overview.png)
+In the future this project may be extended to other satellites located on other radio bands, but that would requires another setup.
 
-Présentation de chaque partie :
+## Project overview
 
-- **Antenne** : Conception et fabrication d’une antenne pour la réception des signaux RF.
-- **Réception** : Conception et fabrication d’un récepteur RF à bande fixe pour la réception des signaux, incluant les filtres et la conversion analogique-numérique.
-- **Traitement du signal** : Logiciel embarqué d’acquisition du signal pour obtenir un enregistrement audio brut.
-- **Traitement d’image** : Logiciel de traitement du signal audio pour obtenir une image.
-- **Prédiction de trajectoire** : Logiciel de prédiction de la trajectoire des satellites pour savoir quand ils seront visibles.
-- **Affichage** : Affichage des images et des trajectoires sur un site web.
+Before the start of the project, a proof of concept was made to validate the feasibility of the project. This proof of concept allowed us to test the reception of signals and the processing of images. The results were satisfactory, but there is still room for improvement cf. [Proof of concept](#proof-of-concept).
+
+To make the work easier to understand and test, the project is divided into several parts. Each part can be developed and tested independently before being integrated into the final system. This allows for a more modular approach and makes it easier to identify and fix issues.
+
+The newly developped components will first be added to the proof of concept setup, that will help us test them on a working system. Once the components are validated, they will be integrated into the final system.
+
+Overview of the project sub-parts:
+
+- **Antenna**: Design and manufacture of an antenna for receiving fix band RF signals.
+- **Reception**: Design and manufacture of a fixed-band RF receiver for signal reception, including filters, IQ separation and analog-to-digital conversion.
+- **Signal processing**: Embedded software for signal acquisition to obtain a raw audio recording.
+- **Image processing**: Software for processing the audio signal to obtain an image.
+- **Trajectory prediction**: Software for predicting satellite trajectories to know when they will be visible and activate the acquisition chain.
+- **Display**: Displaying images and trajectories on a website.
+
+![System overview](./images/main/System%20overview.png)
+**TODO :** translate the image text to english
 
 ## Proof of concept
 
-Une première version de la chaîne d’acquisition a été réalisée avec des composants du commerce. Cette version a permis de valider la faisabilité du projet.
+Before starting the project we made a proof of concept build to try radio signals reception. Detailled information about the proof of concept can be found in the [0. Proof of concept](./0.%20Proof%20of%20concept/README.md) section.
 
-Images récupérées avec le setup du proof of concept :
+### Areas for improvement
 
-![Proof of concept captured image](./images/Proof%20of%20concept%20captured%20image.png)
+The current antenna does not provide optimal quality and remains very sensitive to disturbances and its orientation. It is necessary to replace it with a more efficient antenna to reduce noise and improve image quality. An omnidirectional antenna would be ideal to avoid having to orient the antenna towards the satellite and thus simplify the setup and improve reliability.
 
-Pour cette première version, le montage se compose d’une antenne V-dipôle et d’un récepteur RTL-SDR. Le traitement et l’enregistrement du signal ont été réalisés avec SDR++, et le décodage des images avec Sat-dump.
+The connection between the coaxial cable and the antenna does not take into account the antenna's impedance, which can cause reflections and signal loss. It is therefore important to use a connector adapted to the antenna's impedance.
+Similarly, the connection between the coaxial cable and the receiver is not optimal; a connector matching the receiver's impedance should be used.
 
-Montage actuel :
+Signal reception via software, as well as processing to obtain an image, are not automated. It is therefore essential to automate these steps to obtain an image automatically.
 
-![Proof of concept setup](./images/Proof%20of%20concept%20setup.png)
+## Detailed objectives
 
-La qualité du résultat est convenable mais pas optimale. Il est donc nécessaire de concevoir un système plus performant. Ce premier essai a également permis de faire émerger certains points critiques à prendre en compte :
+This block schematic shows the different parts of the project and their interactions.
 
-- l’orientation nord-sud de l’antenne
-- la hauteur de l’antenne pour permettre aux signaux de rebondir sur le sol
-- les dimensions de l’antenne, qui doivent être adaptées à la longueur d’onde du signal
-- la qualité de la chaîne de transmission entre l’antenne et le récepteur
+![Goal - version 1](./images/main/Goal%20-%20version%201.png)
 
-### Axes d’amélioration
+## Breakdown of the different sub-parts
+- [0. 🧪​ Proof of concept](./0.%20Proof%20of%20concept/README.md)
+- [1. 📡​ Antenna](./1.%20Antenna/README.md)
+- [2. 🔋​ Embedded](./2.Embedded.md)
+- [3. 🖥️​ Server](./3.Server.md)
+- [4. 🖼️​ Frontend](./4.Frontend.md)
 
-L’antenne actuelle ne permet pas d’obtenir une qualité optimale et reste très sensible aux perturbations ainsi qu’à son orientation. Il est nécessaire de la remplacer par une antenne plus performante afin de réduire le bruit et d’améliorer la qualité des images.
+## Workflow management
 
-La connexion entre le câble coaxial et l’antenne ne prend pas en compte l’impédance de cette dernière, ce qui peut entraîner des réflexions et des pertes de signal. Il est donc important d’utiliser un connecteur adapté à l’impédance de l’antenne.
-
-De même, la connexion entre le câble coaxial et le récepteur n’est pas optimale ; il faut utiliser un connecteur correspondant à l’impédance du récepteur.
-
-La réception du signal via le logiciel, ainsi que le traitement pour obtenir une image, ne sont pas automatisés. Il est donc essentiel d’automatiser ces étapes afin d’obtenir une image de manière automatique.
-
-## Objectifs détaillés
-
-![Goal - version 1](./images/Goal%20-%20version%201.png)
-
-## Découpage des différentes parties
-
-### 📡​ Antenne
-
-L’antenne actuelle, de type V-dipôle, est fonctionnelle mais n’est pas la meilleure option. L’utilisation d’une antenne QHA, plus performante, permettra de résoudre de nombreux problèmes de réception.
-
-Guide de fabrication de l’antenne et mesures de performances : [QHA antenna guide](http://metsat.gogan.org/ant_qha.htm)
-
-![QHA antenna](./images/QHA%20antenna.jpg)
-
-**Note :** cette nouvelle antenne est assez imposante et difficilement transportable en l’état. L’idée serait de concevoir une version démontable pour faciliter le transport, tout en veillant à préserver l’intégrité du signal par rapport à une version fixe.
-
-### Réception
-
-**TODO**
-
+**TODO :** describe the workflow management system used in the project
