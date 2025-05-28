@@ -1,8 +1,8 @@
 # Weather satellites imaging
 
-This project aims to develop and implement an autonomous system for capturing images from weather satellites. The ultimate goal is to complete the entire acquisition chain: from the antenna to the signal processing systems, up to displaying the received images on a website. As part of the project we also to developp some related softwares, such as satellites trajectory prediction and image processing, to enhance the overall system capabilities.
+This project aims to develop and implement an autonomous system for capturing images from weather satellites. The ultimate goal is to complete the entire acquisition chain: from the antenna to the signal processing systems, up to displaying the received images on a website. As part of the project we also want to developp some related softwares, such as satellites trajectory prediction and image processing, to enhance the overall system capabilities.
 
-The project is divided into several sub-parts, some of which are optional, to cover the entire chain. Some of the more complex steps can be replaced by existing open-source alternatives. The main interest in redoing them ourselves is to learn how to design them and understand how they work.
+The project is divided into several sub-parts, some of which are optional, to cover the entire chain. Some of the more complex steps can be replaced by existing open-source alternatives but the main interest in redoing them ourselves is to learn how to design them and understand how they work.
 
 As recieving all satellites radio signals is not a simple task, we plan to focus on the most interresting ones, such as NOAA and METEOR wheather satellites. These satellites transmit images in the 137-138 MHz band, which is accessible with a rather simple setup but complex enough for an interresting learning experience.
 
@@ -10,7 +10,7 @@ In the future this project may be extended to other satellites located on other 
 
 ## Project overview
 
-Before the start of the project, a proof of concept was made to validate the feasibility of the project. This proof of concept allowed us to test the reception of signals and the processing of images. The results were satisfactory, but there is still room for improvement cf. [Proof of concept](#proof-of-concept).
+Before the start of the project, a proof of concept was made to validate the feasibility of the project. This proof of concept allowed us to test the reception of signals and the processing of images. The results were satisfactory, but there is still room for improvement cf. [0. Proof of concept](./0.%20Proof%20of%20concept/README.md).
 
 To make the work easier to understand and test, the project is divided into several parts. Each part can be developed and tested independently before being integrated into the final system. This allows for a more modular approach and makes it easier to identify and fix issues.
 
@@ -27,10 +27,6 @@ Overview of the project sub-parts:
 
 ![System overview](./images/main/System%20overview.png)
 **TODO :** translate the image text to english
-
-## Proof of concept
-
-Before starting the project we made a proof of concept build to try radio signals reception. Detailled information about the proof of concept can be found in the [0. Proof of concept](./0.%20Proof%20of%20concept/README.md) section.
 
 ### Areas for improvement
 
